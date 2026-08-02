@@ -1,0 +1,23 @@
+#include <string>
+#include <vector>
+#include <unordered_map>       // map → unordered_map
+using namespace std;
+
+string solution(vector<string> participant, vector<string> completion) {
+    unordered_map<string, int> count;    // map → unordered_map
+    
+    for (int i = 0; i < participant.size(); i++) {
+        count[participant[i]]++;
+    }
+    for (int i = 0; i < completion.size(); i++) {
+        count[completion[i]]--;
+    }
+    
+    for (auto& p : count) {
+        if (p.second != 0) {
+            return p.first;
+        }
+    }
+    
+    return "";
+}
