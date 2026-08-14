@@ -32,3 +32,27 @@ int main() {
 출력 결과
 set:            119 12 1195524421 97674223       ← 사전순 정렬
 unordered_set:  12 1195524421 97674223 119       ← 순서 없음 (실행마다 다를 수 있음)
+
+# stringstream
+#include <sstream>
+
+using namespace std;
+
+string solution(string s) {
+    stringstream ss(s);
+    int num;
+    int mn = INT_MAX;   // 가장 큰 값으로 시작 → 어떤 입력이든 갱신됨
+    int mx = INT_MIN;   // 가장 작은 값으로 시작
+    
+    while (ss >> num) {          // 공백 단위로 하나씩 int로 읽음
+        mn = min(mn, num);
+        mx = max(mx, num);
+    }
+    
+    return to_string(mn) + " " + to_string(mx);
+}
+
+# to_string
+#include <string>
+    
+string ss = to_string(mn) + " " + to_string(mx);
