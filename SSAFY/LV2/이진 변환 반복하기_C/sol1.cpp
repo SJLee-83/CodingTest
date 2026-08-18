@@ -5,7 +5,7 @@ using namespace std;
 string toBinary(int n) {
     string result = "";
     while (n > 0) {
-        result = char('0' + n % 2) + result;
+        result = char('0' + n % 2) + result; // 0은 int, '0' + 0 = 48로 char 타입으로 형변환
         n /= 2;
     }
     return result;
