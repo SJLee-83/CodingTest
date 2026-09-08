@@ -7,7 +7,7 @@ using namespace std;
 int solution(vector<int> A, vector<int> B) {
     int cnt = 0;
     int len = A.size();
-    vector<bool> allo(false, len);
+    vector<bool> allo(len, false);
 
 
     sort(B.begin(), B.end());
@@ -17,7 +17,7 @@ int solution(vector<int> A, vector<int> B) {
             if(B[i] > A[j] && !allo[j]) {
                 cnt++;
                 allo[j] = true;
-                continue;
+                break;
             }
         }
     }
