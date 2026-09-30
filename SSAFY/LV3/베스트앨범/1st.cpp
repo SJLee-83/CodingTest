@@ -1,16 +1,17 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 using namespace std;
 
-bool cmpSong(pair<int, int>& a, pair<int, int>& b){
-    if(a.first != b.first) return a.first > b.first;
-    return a.second < b.second;
+bool cmpGenres(pair<int, string>& a, pair<int, string>& b){
+    return a.first > b.first;
 }
 
-bool cmpGenre(pair<int, string>& a, pair<int, string>& b){
-    return a.first > b.first;
+bool cmpMusic(pair<int, int>& a, pair<int, int>& b){
+    if(a.first != b.first) return a.first > b.first;
+    return a.second < b.second;
 }
 
 vector<int> solution(vector<string> genres, vector<int> plays) {
@@ -23,15 +24,24 @@ vector<int> solution(vector<string> genres, vector<int> plays) {
         sep[genres[i]].push_back({plays[i], i});
     }
     
-    vector<int, string> order;
+    vector<pair<int, string>> cntGenres;
     
     for(auto& p : total){
-        order.push_back({p.second, p.first});
+        cntGenres.push_back({p.second, p.first});
     }
     
-    sort(order.begin(), order.end(), cmpGenre);
-    
+    sort(cntGenres.begin(), cntGenres.end(), cmpGenres);
     
     vector<int> answer;
+    
+    for(int i = 0; i < cntGenres.size(); i++){
+        string g = cntGenres[i].second;
+        vector<pair<int, int>>& cntMusic = sep[g];
+        sort(cntMusic.begin(), cntMusic.end(), cmpMusic);
+        for(int j = 0; j < cntMusic.size() && j < 2; j++){
+            answer.push_back(cntMusic[j].second);
+        }
+    }
+    
     return answer;
-} // 진행중
+}
